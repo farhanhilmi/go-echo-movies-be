@@ -57,7 +57,7 @@ func (repository *MovieRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx,
 		return movie, nil
 	}
 
-	return movie, errors.New("Movie not found")
+	return movie, errors.New("movie not found")
 }
 
 func (repository *MovieRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, movie domain.Movie) domain.Movie {
