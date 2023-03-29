@@ -1,0 +1,49 @@
+### Get all movies
+GET http://127.0.0.1:1323/movies
+X-API-Key: RAHASIA
+Accept: application/json
+
+### Get movies by Id
+GET http://127.0.0.1:1323/movies/2
+X-API-Key: RAHASIA
+Accept: application/json
+
+### Create new movie
+POST http://127.0.0.1:1323/movies
+X-API-Key: RAHASIA
+Accept: application/json
+Content-Type: application/json
+
+{
+	"title": "Game of Thrones",
+	"description": "game of thrones description", 
+	"type": "series",
+	"imdb_url": "https://www.imdb.com/title/tt0944947/",
+	"image_url": "https://m.media-amazon.com/images/M/MV5BMTMwNjQ5NjQxN15BMl5BanBnXkFtZTgwMjQ2NjQyMjE@._V1_UX182_CR0,0,182,268_AL_.jpg",
+	"watched": true,
+	"season": 8,
+	"episode": 6
+}
+
+### delete movies by Id
+DELETE  http://127.0.0.1:1323/movies/3
+X-API-Key: RAHASIA
+Accept: application/json
+
+
+### update movie by id
+PUT http://127.0.0.1:1323/movies/2
+X-API-Key: RAHASIA
+Accept: application/json
+Content-Type: application/json
+
+{
+	"title": "Game of Thrones",
+	"description": "game of thrones description updated", 
+	"type": "series",
+	"imdb_url": "https://www.imdb.com/title/tt0944947/",
+	"image_url": "https://m.media-amazon.com/images/M/MV5BMTMwNjQ5NjQxN15BMl5BanBnXkFtZTgwMjQ2NjQyMjE@._V1_UX182_CR0,0,182,268_AL_.jpg",
+	"watched": true,
+	"season": 8,
+	"episode": 5
+}
