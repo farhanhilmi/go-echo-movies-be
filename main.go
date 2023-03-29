@@ -6,18 +6,25 @@ import (
 	"farhanhilmi/movies_be/src/repository"
 	"farhanhilmi/movies_be/src/service"
 
-	"github.com/go-playground/validator"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/labstack/echo/v4"
+
+	"github.com/go-playground/validator/v10"
 )
 
 func main() {
 	db := app.NewDB()
 	validate := validator.New()
-	movieRepository := repository.NewMovieRepository(db)
-	movieService := service.NewMovieService(movieRepository, validate)
+	movieRepository := repository.NewMovieRepository()
+	movieService := service.NewMovieService(movieRepository, db, validate)
 	movieController := controller.NewMovieController(movieService)
 	router := app.NewRouter(movieController)
+	print("MASOK")
+	router.GET("/", func(c echo.Context) error {
+		return c.JSON(200, "Hello, World!")
+	})
 
-	router.Start(":8080")
+	router.Logger.Fatal(router.Start(":1323"))
 	// e := echo.New()
 	// e.GET("/", func(c echo.Context) error {
 	// 	return c.String(200, "Hello, World!")

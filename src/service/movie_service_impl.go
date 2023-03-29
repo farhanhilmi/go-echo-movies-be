@@ -22,6 +22,7 @@ func NewMovieService(movieRepository repository.MovieRepository, DB *sql.DB, val
 }
 
 func (service *MovieServiceImpl) Create(ctx context.Context, request web.MovieCreateRequest) web.MovieResponse {
+	print("request: ", request.Title)
 	err := service.Validate.Struct(request)
 	helper.PanicIfError(err)
 

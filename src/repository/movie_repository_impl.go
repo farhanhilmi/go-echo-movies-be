@@ -46,7 +46,7 @@ func (repository *MovieRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) 
 
 func (repository *MovieRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, movieId int) (domain.Movie, error) {
 	SQL := "select * from movies where id = ?"
-	rows, err := tx.QueryContext(ctx, SQL)
+	rows, err := tx.QueryContext(ctx, SQL, movieId)
 	helper.PanicIfError(err)
 	defer rows.Close()
 

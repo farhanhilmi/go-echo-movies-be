@@ -17,7 +17,7 @@ func NewMovieController(movieService service.MovieService) MovieController {
 	return &MovieControllerImpl{MovieService: movieService}
 }
 
-func (controller *MovieControllerImpl) Create(ctx echo.Context) {
+func (controller *MovieControllerImpl) Create(ctx echo.Context) error {
 	movieCreateRequest := web.MovieCreateRequest{}
 	helper.ReadFromRequestBody(ctx, &movieCreateRequest)
 
@@ -28,10 +28,10 @@ func (controller *MovieControllerImpl) Create(ctx echo.Context) {
 		Data:   movieResponse,
 	}
 
-	helper.WriteToResponseBody(ctx, webReponse)
+	return ctx.JSON(201, webReponse)
 }
 
-func (controller *MovieControllerImpl) Update(ctx echo.Context) {
+func (controller *MovieControllerImpl) Update(ctx echo.Context) error {
 	movieUpdateRequest := web.MovieUpdateRequest{}
 	helper.ReadFromRequestBody(ctx, &movieUpdateRequest)
 
@@ -47,11 +47,11 @@ func (controller *MovieControllerImpl) Update(ctx echo.Context) {
 		Status: "OK",
 		Data:   movieResponse,
 	}
-
-	helper.WriteToResponseBody(ctx, webReponse)
+	return ctx.JSON(200, webReponse)
+	// helper.WriteToResponseBody(ctx, webReponse)
 }
 
-func (controller *MovieControllerImpl) Delete(ctx echo.Context) {
+func (controller *MovieControllerImpl) Delete(ctx echo.Context) error {
 	movieId := ctx.Param("movieId")
 	id, err := strconv.Atoi(movieId)
 	helper.PanicIfError(err)
@@ -61,11 +61,11 @@ func (controller *MovieControllerImpl) Delete(ctx echo.Context) {
 		Code:   200,
 		Status: "OK",
 	}
-
-	helper.WriteToResponseBody(ctx, webReponse)
+	return ctx.JSON(200, webReponse)
+	// helper.WriteToResponseBody(ctx, webReponse)
 }
 
-func (controller *MovieControllerImpl) FindById(ctx echo.Context) {
+func (controller *MovieControllerImpl) FindById(ctx echo.Context) error {
 	movieId := ctx.Param("movieId")
 	id, err := strconv.Atoi(movieId)
 	helper.PanicIfError(err)
@@ -76,17 +76,17 @@ func (controller *MovieControllerImpl) FindById(ctx echo.Context) {
 		Status: "OK",
 		Data:   movieResponse,
 	}
-
-	helper.WriteToResponseBody(ctx, webReponse)
+	return ctx.JSON(200, webReponse)
+	// helper.WriteToResponseBody(ctx, webReponse)
 }
 
-func (controller *MovieControllerImpl) FindAll(ctx echo.Context) {
+func (controller *MovieControllerImpl) FindAll(ctx echo.Context) error {
 	movieResponses := controller.MovieService.FindAll(ctx.Request().Context())
 	webReponse := web.WebResponse{
 		Code:   200,
 		Status: "OK",
 		Data:   movieResponses,
 	}
-
-	helper.WriteToResponseBody(ctx, webReponse)
+	return ctx.JSON(200, webReponse)
+	// helper.WriteToResponseBody(ctx, webReponse)
 }
